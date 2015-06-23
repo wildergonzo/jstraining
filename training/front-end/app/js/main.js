@@ -1,6 +1,15 @@
 "use strict";
+// Task1: Create Calculator class with Min, Max, Sum and Average methods.
 var Calculator = function () {
     var memory = 0;
+    this.getMemory = function () {
+        return memory;
+    };
+    this.setMemory = function(newValue) {
+        memory = newValue;
+        return memory;
+    };
+    
     this.min = function (numbers, pos) {
         if (pos === numbers.length - 1) {
             return numbers[pos];
@@ -49,23 +58,40 @@ var Calculator = function () {
         console.log('average: ' + this.avg(arguments, 0, arguments.length));
         console.log('sum: ' + this.sum(arguments, 0));
     };
-        
-    this.addNumbers = function (numbers) {
-        if (numbers.length > 1) {
-            if (memory > 0) {
-                memory = numbers[0] + numbers[1];
-            } else {
-                memory = memory + numbers[0] + numbers[1];
-            }
-        } else {
-            memory = memory + numbers[0];
-        }
-        return memory;
-    };
-    
-    this.add = function () {
-        console.log(this.addNumbers(arguments));
-    };
+};
+
+// Task2: Add methods to Calculator using Prototype. 
+Calculator.prototype.add = function (num1,num2) {
+    if(!num2)
+        return this.setMemory(this.getMemory() + num1);
+    this.setMemory(num1 + num2);
+    return this.getMemory();
+};
+
+Calculator.prototype.substract = function (num1,num2) {
+    if(!num2)
+        return this.setMemory(this.getMemory() - num1);
+    this.setMemory(num1 - num2);
+    return this.getMemory();
+};
+
+Calculator.prototype.multiply = function (num1,num2) {
+    if(!num2)
+        return this.setMemory(this.getMemory() * num1);
+    this.setMemory(num1 * num2);
+    return this.getMemory();
+};
+
+Calculator.prototype.divide = function (num1,num2) {
+    if(!num2)
+        return this.setMemory(this.getMemory() / num1);
+    this.setMemory(num1 / num2);
+    return this.getMemory();
+};
+
+Calculator.prototype.reset = function () {
+    this.setMemory(0);
+    return this.getMemory();
 };
     
 var calc = new Calculator();
