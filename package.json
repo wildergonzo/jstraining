@@ -1,0 +1,26 @@
+{
+  "name": "jstraining",
+  "version": "1.0.0",
+  "description": "rest api testing with frisby.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/jasmine-node/bin/jasmine-node ./training/back-end/spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wildergonzo/jstraining.git"
+  },
+  "keywords": [
+    "frisby"
+  ],
+  "author": "wilder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wildergonzo/jstraining/issues"
+  },
+  "homepage": "https://github.com/wildergonzo/jstraining",
+  "devDependencies": {
+    "frisby": "^0.8.5",
+    "jasmine-node": "^1.14.5"
+  }
+}
