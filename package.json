@@ -4,7 +4,7 @@
   "description": "rest api testing with frisby.js",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/jasmine-node/bin/jasmine-node ./training/back-end/spec"
+    "test": "./node_modules/jasmine-node/bin/jasmine-node --verbose ./training/back-end/spec"
   },
   "repository": {
     "type": "git",
