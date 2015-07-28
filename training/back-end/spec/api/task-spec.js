@@ -26,3 +26,31 @@ frisby.create('agilefant should return the timeEntry data of a task')
 		'id': 206696
 	})
 .toss();
+
+var newTask = {
+   "type": "task",
+   "name": "testCreateTask"
+};
+frisby.create('agilefant should create a new task')
+	.post('https://cloud.agilefant.com:443/wildergonzo/api/v1/tasks', newTask, jsonTrue)
+	.expectStatus(201)
+	.expectJSON('0', {
+			'type': 'task'
+	})
+.toss();
+
+var taskData = {
+   "type": "task",
+   "name": "taskToBeUpdated"
+};
+frisby.create('agilefant should update the name of an existent task')
+	.post('https://cloud.agilefant.com:443/wildergonzo/api/v1/backlogs', taskData, jsonTrue)
+	.expectStatus(201)
+	.afterJSON(function(task){
+		backlogData.name = "taskUpdated";
+		frisby.create('update task name')
+			.post('https://cloud.agilefant.com:443/wildergonzo/api/v1/tasks/' + task[0].id, taskData, jsonTrue)
+			.expectStatus(200)
+		.toss();
+	})
+.toss();

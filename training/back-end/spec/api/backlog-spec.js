@@ -2,6 +2,7 @@ var frisby = require('frisby');
 var backlogId = {stories: 145526, tasks: 145761};
 var expectedStories = [652018, 650888, 650887];
 var expectedTasks = [464328, 464111];
+var jsonTrue = { json: true};
 
 frisby.globalSetup({
 	request: {
@@ -45,3 +46,47 @@ frisby.create('agilefant should return all tasks from a backlog')
 			expect(tasksMatch).toBeTruthy();
 	})
 .toss();
+
+var newBacklog = {
+   "type": "product",
+   "name": "testCreateBacklog"
+};
+frisby.create('agilefant should create a new backlog')
+	.post('https://cloud.agilefant.com:443/wildergonzo/api/v1/backlogs', newBacklog, jsonTrue)
+	.expectStatus(201)
+	.expectJSON('0', {
+			'type': 'product'
+	})
+.toss();
+
+var backlogData = {
+   "type": "product",
+   "name": "backlogToBeUpdated"
+};
+frisby.create('agilefant should update the name of an existent backlog')
+	.post('https://cloud.agilefant.com:443/wildergonzo/api/v1/backlogs', backlogData, jsonTrue)
+	.expectStatus(201)
+	.afterJSON(function(backlog){
+		backlogData.name = "backlogUpdated";
+		frisby.create('update name')
+			.post('https://cloud.agilefant.com:443/wildergonzo/api/v1/backlogs/' + backlog[0].id, backlogData, jsonTrue)
+			.expectStatus(200)
+		.toss();
+	})
+.toss();
+
+// not running in my env. error: Cannot call method 'replace' of null
+/*var tempBacklog = {
+   "type": "product",
+   "name": "backlogToBeDeleted"
+};
+frisby.create('agilefant should create a backlog to be removed')
+	.post('https://cloud.agilefant.com:443/wildergonzo/api/v1/backlogs', tempBacklog)
+	.expectStatus(201)
+	.afterJSON(function(backlog){
+		frisby.create('agilefant should delete a backlog given an id')
+			.delete('https://cloud.agilefant.com:443/wildergonzo/api/v1/backlogs/' + backlog[0].id)
+			.expectStatus(200)
+		.toss();
+	}
+.toss();*/
