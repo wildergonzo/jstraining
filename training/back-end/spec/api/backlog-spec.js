@@ -49,7 +49,7 @@ frisby.create('agilefant should return all tasks from a backlog')
 
 var newBacklog = {
    "type": "product",
-   "name": "testCreateBacklog" //update this for each execution.
+   "name": "testCreateBacklog"
 };
 frisby.create('agilefant should create a new backlog')
 	.post('https://cloud.agilefant.com:443/wildergonzo/api/v1/backlogs', newBacklog, jsonTrue)
@@ -61,7 +61,7 @@ frisby.create('agilefant should create a new backlog')
 
 var backlogData = {
    "type": "product",
-   "name": "backlogToBeUpdated" //update this for each execution.
+   "name": "backlogToBeUpdated"
 };
 frisby.create('agilefant should update the name of an existent backlog')
 	.post('https://cloud.agilefant.com:443/wildergonzo/api/v1/backlogs', backlogData, jsonTrue)

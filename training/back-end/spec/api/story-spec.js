@@ -1,6 +1,7 @@
 var frisby = require('frisby');
 var storyId = 652018;
 var expectedComments = [1310, 1309];
+var jsonTrue = { json: true};
 
 frisby.globalSetup({
 	request: {
@@ -32,5 +33,33 @@ frisby.create('agilefant should return all comment from a story')
 					expect(comments[i].type).toBe('comment');
 			}
 			expect(commentsMatch).toBeTruthy();
+	})
+.toss();
+
+var newStory = {
+   "type": "story",
+   "name": "testCreateStory"
+};
+frisby.create('agilefant should create a new story')
+	.post('https://cloud.agilefant.com:443/wildergonzo/api/v1/stories', newStory, jsonTrue)
+	.expectStatus(201)
+	.expectJSON('0', {
+			'type': 'story'
+	})
+.toss();
+
+var storyData = {
+   "type": "story",
+   "name": "storyToBeUpdated"
+};
+frisby.create('agilefant should update the name of an existent story')
+	.post('https://cloud.agilefant.com:443/wildergonzo/api/v1/backlogs', storyData, jsonTrue)
+	.expectStatus(201)
+	.afterJSON(function(story){
+		backlogData.name = "storyUpdated";
+		frisby.create('update story name')
+			.post('https://cloud.agilefant.com:443/wildergonzo/api/v1/stories/' + story[0].id, storyData, jsonTrue)
+			.expectStatus(200)
+		.toss();
 	})
 .toss();

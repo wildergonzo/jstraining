@@ -33,3 +33,12 @@ frisby.create('agilefant should return the team data given an id')
 		'id': 25937
 	})
 .toss();
+
+var teamData = {
+   "type": "team",
+   "name": "teamNameUpdated" // update for each running
+};
+frisby.create('agilefant should update an existent team')
+  .post('https://cloud.agilefant.com:443/wildergonzo/api/v1/tasks/26437', teamData, jsonTrue)
+  .expectStatus(200)
+.toss();
