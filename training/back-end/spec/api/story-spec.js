@@ -10,7 +10,6 @@ frisby.globalSetup({
 	}
 });
 
-var storiesMatch = true;
 frisby.create('agilefant should return the story data given an id')
 	.get('https://cloud.agilefant.com:443/wildergonzo/api/v1/stories/' + storyId)
 	.expectStatus(200)
